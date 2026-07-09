@@ -13,6 +13,10 @@ plugins {
     `maven-publish`
 }
 
+repositories {
+    mavenCentral()
+}
+
 group = "com.derekwinters.chores"
 version = (findProperty("version")?.takeIf { it != "unspecified" }
     ?: (JsonSlurper().parse(rootDir.resolve("../package.json")) as Map<*, *>)["version"] as String)
