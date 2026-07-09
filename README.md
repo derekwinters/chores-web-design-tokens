@@ -23,6 +23,15 @@ npm ci
 npm test    # style-dictionary build + vitest suite (the tests ARE the token spec)
 ```
 
+## Built-in theme palettes (`themes/`)
+
+The six built-in runtime palettes (dark, light, charcoal, paper, pink, frog) live here as
+pure data — one JSON file per theme, keyed by the canonical role names. The build emits
+`dist/themes.json` keyed by the backend API field names (`background` → `bg`), shipped in
+both artifacts; once `chores-web-backend` consumes it, **this repo is the source of truth
+for the palettes**. Editing a palette value is a `fix:` (PATCH); adding a theme file is a
+`feat:` (MINOR) — no code change needed either way.
+
 ## Two-tier theming model
 
 These are the **static** (Tier 1) tokens. The backend `/theme` API (Tier 2) overrides the

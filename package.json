@@ -14,13 +14,15 @@
   "main": "dist/web/tokens.js",
   "exports": {
     ".": "./dist/web/tokens.js",
-    "./tokens.css": "./dist/web/tokens.css"
+    "./tokens.css": "./dist/web/tokens.css",
+    "./themes.json": "./dist/themes.json"
   },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "node build.js",
+    "prepublishOnly": "npm run build",
     "test": "npm run build && vitest run",
     "test:watch": "vitest"
   },
