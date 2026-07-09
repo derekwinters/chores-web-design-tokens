@@ -1,0 +1,15 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  release-please:
+    uses: derekwinters/chores-web-actions/.github/workflows/release-please.yml@19729c4d6ee3366dc32f4bd8946cb8ac7f6b05e5

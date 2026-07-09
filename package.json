@@ -1,0 +1,31 @@
+{
+  "name": "@chores/design-tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for chores-web — single source of truth for web and Android design values",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derekwinters/chores-web-design-tokens.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "type": "module",
+  "main": "dist/web/tokens.js",
+  "exports": {
+    ".": "./dist/web/tokens.js",
+    "./tokens.css": "./dist/web/tokens.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "test": "npm run build && vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.3.0",
+    "vitest": "^3.0.0"
+  }
+}
