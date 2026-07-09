@@ -1,0 +1,11 @@
+{
+  "background": "#1a1a1a",
+  "surface": "#2d2d2d",
+  "surface2": "#3a3a3a",
+  "accent": "#999999",
+  "primary": "#666666",
+  "secondary": "#555555",
+  "success": "#999999",
+  "warning": "#999999",
+  "error": "#999999"
+}
