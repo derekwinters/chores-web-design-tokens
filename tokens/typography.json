@@ -1,0 +1,107 @@
+{
+  "font": {
+    "family": {
+      "body": {
+        "web": { "$value": "'DM Sans', system-ui, sans-serif" },
+        "android": { "$value": "default" }
+      },
+      "brand": {
+        "web": { "$value": "'Playfair Display', serif" },
+        "android": { "$value": "serif" }
+      }
+    },
+    "weight": {
+      "regular": { "$type": "fontWeight", "$value": 400 },
+      "medium": { "$type": "fontWeight", "$value": 500 },
+      "semibold": { "$type": "fontWeight", "$value": 600 },
+      "bold": { "$type": "fontWeight", "$value": 700 }
+    }
+  },
+  "typography": {
+    "display-small": {
+      "size": { "$value": 36 },
+      "line-height": { "$value": 44 },
+      "weight": { "$value": "{font.weight.regular}" },
+      "letter-spacing": { "$value": 0 }
+    },
+    "headline-medium": {
+      "size": { "$value": 28 },
+      "line-height": { "$value": 36 },
+      "weight": { "$value": "{font.weight.regular}" },
+      "letter-spacing": { "$value": 0 }
+    },
+    "headline-small": {
+      "size": { "$value": 24 },
+      "line-height": { "$value": 32 },
+      "weight": { "$value": "{font.weight.regular}" },
+      "letter-spacing": { "$value": 0 }
+    },
+    "title-large": {
+      "size": { "$value": 22 },
+      "line-height": { "$value": 28 },
+      "weight": { "$value": "{font.weight.regular}" },
+      "letter-spacing": { "$value": 0 }
+    },
+    "title-medium": {
+      "size": { "$value": 16 },
+      "line-height": { "$value": 24 },
+      "weight": { "$value": "{font.weight.medium}" },
+      "letter-spacing": { "$value": 0.15 }
+    },
+    "title-small": {
+      "size": { "$value": 14 },
+      "line-height": { "$value": 20 },
+      "weight": { "$value": "{font.weight.medium}" },
+      "letter-spacing": { "$value": 0.1 }
+    },
+    "body-large": {
+      "size": { "$value": 16 },
+      "line-height": { "$value": 24 },
+      "weight": { "$value": "{font.weight.regular}" },
+      "letter-spacing": { "$value": 0.5 }
+    },
+    "body-medium": {
+      "size": { "$value": 14 },
+      "line-height": { "$value": 20 },
+      "weight": { "$value": "{font.weight.regular}" },
+      "letter-spacing": { "$value": 0.25 }
+    },
+    "body-small": {
+      "size": { "$value": 12 },
+      "line-height": { "$value": 16 },
+      "weight": { "$value": "{font.weight.regular}" },
+      "letter-spacing": { "$value": 0.4 }
+    },
+    "label-large": {
+      "size": { "$value": 14 },
+      "line-height": { "$value": 20 },
+      "weight": { "$value": "{font.weight.medium}" },
+      "letter-spacing": { "$value": 0.1 }
+    },
+    "label-medium": {
+      "size": { "$value": 12 },
+      "line-height": { "$value": 16 },
+      "weight": { "$value": "{font.weight.medium}" },
+      "letter-spacing": { "$value": 0.5 }
+    },
+    "label-small": {
+      "size": { "$value": 11 },
+      "line-height": { "$value": 16 },
+      "weight": { "$value": "{font.weight.medium}" },
+      "letter-spacing": { "$value": 0.5 }
+    },
+    "brand-title": {
+      "size": { "$value": 20.8 },
+      "line-height": { "$value": 26 },
+      "weight": { "$value": "{font.weight.bold}" },
+      "letter-spacing": { "$value": -0.5 }
+    },
+    "micro-label": {
+      "size": { "$value": "{typography.label-small.size}" },
+      "line-height": { "$value": "{typography.label-small.line-height}" },
+      "weight": { "$value": "{font.weight.semibold}" },
+      "letter-spacing": { "$value": 0.55 },
+      "transform": { "$value": "uppercase" }
+    }
+  }
+}

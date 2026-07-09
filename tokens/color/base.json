@@ -1,0 +1,33 @@
+{
+  "base": {
+    "color": {
+      "navy-950": { "$type": "color", "$value": "#080c14" },
+      "navy-900": { "$type": "color", "$value": "#16202e" },
+      "navy-800": { "$type": "color", "$value": "#1e2d40" },
+      "blue-600": { "$type": "color", "$value": "#3574B3" },
+      "blue-300": { "$type": "color", "$value": "#73B1DD" },
+      "slate-600": { "$type": "color", "$value": "#4a5568" },
+      "green-500": { "$type": "color", "$value": "#3db87a" },
+      "amber-500": { "$type": "color", "$value": "#e8a930" },
+      "red-400": { "$type": "color", "$value": "#e05c6a" },
+      "mist-100": { "$type": "color", "$value": "#dce8f5" },
+      "steel-400": { "$type": "color", "$value": "#7899b8" },
+
+      "paper-200": { "$type": "color", "$value": "#f0ede6" },
+      "paper-100": { "$type": "color", "$value": "#f5f0e9" },
+      "paper-50": { "$type": "color", "$value": "#faf8f3" },
+      "bronze-800": { "$type": "color", "$value": "#8b6914" },
+      "bronze-600": { "$type": "color", "$value": "#b8860b" },
+      "olive-600": { "$type": "color", "$value": "#7a7a6a" },
+      "green-700": { "$type": "color", "$value": "#558b2f" },
+      "amber-600": { "$type": "color", "$value": "#e0860b" },
+      "red-700": { "$type": "color", "$value": "#d32f2f" },
+      "ink-900": { "$type": "color", "$value": "#1a1a1a" },
+      "gray-600": { "$type": "color", "$value": "#555555" },
+
+      "white": { "$type": "color", "$value": "#ffffff" },
+      "gold-500": { "$type": "color", "$value": "#c9a84c" },
+      "forest-700": { "$type": "color", "$value": "#1D6B4A" }
+    }
+  }
+}

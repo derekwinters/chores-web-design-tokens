@@ -1,0 +1,14 @@
+{
+  "radius": {
+    "xs": { "$type": "dimension", "$value": 4 },
+    "sm": { "$type": "dimension", "$value": 8 },
+    "md": { "$type": "dimension", "$value": 12 },
+    "pill": { "$type": "dimension", "$value": 9999 },
+    "circle": { "$type": "dimension", "$value": "50%" }
+  },
+  "border": {
+    "emphasis": { "$type": "dimension", "$value": 2 },
+    "accent-bar": { "$type": "dimension", "$value": 4 },
+    "focus-ring": { "$type": "dimension", "$value": 3 }
+  }
+}

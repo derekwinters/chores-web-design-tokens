@@ -1,0 +1,15 @@
+{
+  "space": {
+    "none": { "$type": "dimension", "$value": 0 },
+    "2xs": { "$type": "dimension", "$value": 2 },
+    "xs": { "$type": "dimension", "$value": 4 },
+    "sm": { "$type": "dimension", "$value": 8 },
+    "md": { "$type": "dimension", "$value": 12 },
+    "lg": { "$type": "dimension", "$value": 16 },
+    "xl": { "$type": "dimension", "$value": 24 },
+    "2xl": { "$type": "dimension", "$value": 32 },
+    "3xl": { "$type": "dimension", "$value": 40 },
+    "4xl": { "$type": "dimension", "$value": 48 },
+    "5xl": { "$type": "dimension", "$value": 64 }
+  }
+}

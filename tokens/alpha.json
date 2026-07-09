@@ -1,0 +1,9 @@
+{
+  "alpha": {
+    "tint": { "$value": 0.15 },
+    "tint-subtle": { "$value": 0.1 },
+    "muted": { "$value": 0.7 },
+    "disabled": { "$value": 0.4 },
+    "hover": { "$value": 0.85 }
+  }
+}

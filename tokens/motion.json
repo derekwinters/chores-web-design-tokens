@@ -1,0 +1,16 @@
+{
+  "duration": {
+    "xs": { "$type": "duration", "$value": 100 },
+    "sm": { "$type": "duration", "$value": 150 },
+    "md": { "$type": "duration", "$value": 200 },
+    "lg": { "$type": "duration", "$value": 300 },
+    "spinner": { "$type": "duration", "$value": 1000 }
+  },
+  "easing": {
+    "standard": { "$value": "ease" },
+    "linear": { "$value": "linear" }
+  },
+  "motion": {
+    "scale-in-start": { "$value": 0.92 }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "breakpoint": {
+    "sm": { "$type": "dimension", "$value": 600 },
+    "md": { "$type": "dimension", "$value": 768 },
+    "lg": { "$type": "dimension", "$value": 1024 },
+    "xl": { "$type": "dimension", "$value": 1200 }
+  },
+  "size": {
+    "content-max": { "$type": "dimension", "$value": 1600 },
+    "form-max": { "$type": "dimension", "$value": 400 },
+    "modal-max": { "$type": "dimension", "$value": 540 },
+    "sidebar": { "$type": "dimension", "$value": 240 },
+    "sidebar-collapsed": { "$type": "dimension", "$value": 80 },
+    "topbar": { "$type": "dimension", "$value": 64 },
+    "touch-target-min": { "$type": "dimension", "$value": 44 }
+  },
+  "icon": {
+    "sm": { "$type": "dimension", "$value": 16 },
+    "md": { "$type": "dimension", "$value": 24 },
+    "lg": { "$type": "dimension", "$value": 40 }
+  },
+  "avatar": {
+    "md": { "$type": "dimension", "$value": 32 },
+    "lg": { "$type": "dimension", "$value": 40 },
+    "hero": { "$type": "dimension", "$value": 128 }
+  },
+  "z": {
+    "content": { "$value": 0 },
+    "nav": { "$value": 100 },
+    "drawer": { "$value": 200 },
+    "overlay": { "$value": 300 },
+    "modal": { "$value": 400 },
+    "toast": { "$value": 500 }
+  }
+}

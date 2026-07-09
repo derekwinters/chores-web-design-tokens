@@ -1,0 +1,27 @@
+{
+  "elevation": {
+    "0": {
+      "android": { "$value": 0 },
+      "web": { "$value": "none" }
+    },
+    "1": {
+      "android": { "$value": 4 },
+      "web": { "$value": "0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.15)" }
+    },
+    "2": {
+      "android": { "$value": 8 },
+      "web": { "$value": "0 4px 8px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.15)" }
+    },
+    "3": {
+      "android": { "$value": 12 },
+      "web": { "$value": "0 6px 12px rgba(0, 0, 0, 0.3), 0 12px 30px rgba(0, 0, 0, 0.15)" }
+    },
+    "4": {
+      "android": { "$value": 16 },
+      "web": { "$value": "0 8px 16px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.15)" }
+    }
+  },
+  "shadow": {
+    "accent-glow": { "$value": "0 0 12px rgba(var(--accent-rgb), 0.4)" }
+  }
+}
