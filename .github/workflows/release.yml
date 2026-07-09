@@ -22,17 +22,17 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: derekwinters/chores-web-actions/actions/setup-node@19729c4d6ee3366dc32f4bd8946cb8ac7f6b05e5
         with:
-          node-version: 22
-          cache: npm
-          registry-url: https://npm.pkg.github.com
+          node-version: 22.x
       - run: npm ci
       - run: npm test
-      - run: npm publish
+      # publishConfig.registry points at npm.pkg.github.com; only auth is needed.
+      - run: echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm publish
 
   publish-maven:
     needs: release-please
@@ -42,18 +42,14 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: derekwinters/chores-web-actions/actions/setup-node@19729c4d6ee3366dc32f4bd8946cb8ac7f6b05e5
         with:
-          node-version: 22
-          cache: npm
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
+          node-version: 22.x
       - run: npm ci
       - run: npm run build
-      - run: ./gradlew publish -Pversion=${{ needs.release-please.outputs.version }}
+      # Runner images ship Temurin JDK 17 (JAVA_HOME_17_X64); no setup-java needed.
+      - run: JAVA_HOME="$JAVA_HOME_17_X64" ./gradlew publish --no-daemon -Pversion=${{ needs.release-please.outputs.version }}
         working-directory: android-artifact
         env:
           GITHUB_ACTOR: ${{ github.actor }}

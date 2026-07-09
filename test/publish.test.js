@@ -59,10 +59,19 @@ describe("release workflow publish jobs", () => {
     expect(gates.length).toBeGreaterThanOrEqual(2);
   });
   it("npm publish authenticates against GitHub Packages", () => {
-    expect(yml).toMatch(/registry-url:.*npm\.pkg\.github\.com/);
+    expect(yml).toMatch(/npm\.pkg\.github\.com\/:_authToken/);
     expect(yml).toMatch(/NODE_AUTH_TOKEN/);
   });
   it("maven publish passes the released version to gradle", () => {
     expect(yml).toMatch(/-Pversion=\$\{\{ needs\.release-please\.outputs\.version \}\}/);
+  });
+  it("only SHA-pinned action refs are used (repo policy)", () => {
+    for (const file of [".github/workflows/pr.yml", ".github/workflows/release.yml"]) {
+      const uses = read(file).match(/uses:\s*\S+/g) || [];
+      expect(uses.length).toBeGreaterThan(0);
+      for (const u of uses) {
+        expect(u, `${file}: ${u}`).toMatch(/@[0-9a-f]{40}/);
+      }
+    }
   });
 });
