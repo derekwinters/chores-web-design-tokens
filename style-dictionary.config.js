@@ -1,0 +1,256 @@
+// Style Dictionary v4 config — two platforms (web, android) built from the
+// same DTCG token source, per chores-web-design-tokens#3.
+//
+// Custom transform groups:
+//   - chores/web     → kebab-case token paths → CSS custom-property names,
+//                      including the runtime-compat slot names (--bg, --surface2, …)
+//                      that chores-web-frontend's applyTheme() writes.
+//   - chores/compose → kebab-case token paths → SCREAMING_SNAKE Kotlin names.
+import StyleDictionary from "style-dictionary";
+
+// ---------- helpers ----------
+
+const plain = (node) => (node && typeof node === "object" ? node.$value : node);
+
+function walkLeaves(tree, fn, path = []) {
+  for (const [key, val] of Object.entries(tree)) {
+    if (val && typeof val === "object" && "$value" in val) {
+      fn([...path, key], val.$value);
+    } else if (val && typeof val === "object") {
+      walkLeaves(val, fn, [...path, key]);
+    }
+  }
+}
+
+function hexToRgbTriplet(hex) {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `${r}, ${g}, ${b}`;
+}
+
+function cssColorToArgbLong(v) {
+  if (v.startsWith("#")) {
+    return `0xFF${v.slice(1).toUpperCase()}`;
+  }
+  const m = v.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+  if (m) {
+    const [, r, g, b, a] = m;
+    const toHex = (n) => Number(n).toString(16).padStart(2, "0").toUpperCase();
+    const alpha = toHex(Math.round(parseFloat(a) * 255));
+    return `0x${alpha}${toHex(r)}${toHex(g)}${toHex(b)}`;
+  }
+  throw new Error(`unsupported color value for android: ${v}`);
+}
+
+const screaming = (s) => s.replace(/-/g, "_").toUpperCase();
+// Kotlin identifiers can't start with a digit: 2xs → XXS, 3xl → XXXL, …
+const kotlinName = (s) => {
+  const m = s.match(/^(\d)(x[sl])$/);
+  if (m) return screaming("x".repeat(Number(m[1]) - 1) + m[2]);
+  return screaming(s);
+};
+const kotlinNum = (v) =>
+  Number.isInteger(v) ? String(v) : `${v}f`;
+
+// CSS var name for a token path (the chores/web naming rules).
+function cssVarName(path) {
+  const [root, ...rest] = path;
+  if (root === "color") {
+    if (rest[0] === "dark" || rest[0] === "light") {
+      const slot = rest[1] === "background" ? "bg" : rest.slice(1).join("-");
+      return rest[0] === "dark" ? slot : `light-${slot}`;
+    }
+    return rest.join("-"); // color.brand → brand
+  }
+  if (root === "border") return `border-width-${rest.join("-")}`;
+  if (root === "elevation") return `elevation-${rest[0]}`; // web leaf only
+  if (root === "font" && rest[0] === "family") return `font-family-${rest[1]}`; // web leaf only
+  return [root, ...rest].join("-");
+}
+
+// ---------- name transforms (per-platform naming conventions) ----------
+
+StyleDictionary.registerTransform({
+  name: "name/chores-css-var",
+  type: "name",
+  transform: (token) => cssVarName(token.path),
+});
+
+StyleDictionary.registerTransform({
+  name: "name/chores-compose",
+  type: "name",
+  transform: (token) => token.path.map(kotlinName).join("_"),
+});
+
+StyleDictionary.registerTransformGroup({
+  name: "chores/web",
+  transforms: ["name/chores-css-var"],
+});
+
+StyleDictionary.registerTransformGroup({
+  name: "chores/compose",
+  transforms: ["name/chores-compose"],
+});
+
+// ---------- formats ----------
+
+const PX_ROOTS = new Set(["space", "radius", "breakpoint", "size", "icon", "avatar", "border"]);
+const RGB_TRIPLET_SLOTS = ["accent", "error", "warning", "success", "points"];
+
+StyleDictionary.registerFormat({
+  name: "chores/css",
+  format: ({ dictionary }) => {
+    const lines = [];
+    walkLeaves(dictionary.tokens, (path, value) => {
+      const [root, ...rest] = path;
+      if (root === "base") return; // base tier is aliased, never emitted
+      if (root === "color" && rest[0] === "light") return; // light set ships via JS (runtime applyTheme)
+      if (root === "elevation" && rest[1] !== "web") return;
+      if (root === "font" && rest[0] === "family" && rest[2] !== "web") return;
+      if (root === "typography" && rest[1] === "transform") {
+        lines.push(`  --${cssVarName(path)}: ${value};`);
+        return;
+      }
+
+      let out = value;
+      if (PX_ROOTS.has(root)) {
+        out = typeof value === "number" ? `${value}px` : value; // radius.circle = 50%
+      } else if (root === "duration") {
+        out = `${value}ms`;
+      } else if (root === "typography") {
+        const prop = rest[1];
+        if (prop === "size" || prop === "line-height") {
+          out = `${Number((value / 16).toFixed(4))}rem`;
+        } else if (prop === "letter-spacing") {
+          out = `${value}px`;
+        }
+      }
+      lines.push(`  --${cssVarName(path)}: ${out};`);
+
+      // -rgb triplets for the tint pattern rgba(var(--x-rgb), alpha)
+      if (root === "color" && rest[0] === "dark" && RGB_TRIPLET_SLOTS.includes(rest[1])) {
+        lines.push(`  --${rest[1]}-rgb: ${hexToRgbTriplet(value)};`);
+      }
+    });
+    return [
+      "/* Generated by @chores/design-tokens — do not edit by hand. */",
+      "/* :root carries the DARK default set (the pre-theme-load prepaint); the runtime",
+      "   theme from the backend /theme API overwrites the slot properties at load. */",
+      ":root {",
+      ...lines,
+      "}",
+      "",
+    ].join("\n");
+  },
+});
+
+StyleDictionary.registerFormat({
+  name: "chores/js",
+  format: ({ dictionary }) => {
+    const tree = {};
+    walkLeaves(dictionary.tokens, (path, value) => {
+      if (path[0] === "base") return;
+      let cursor = tree;
+      for (const key of path.slice(0, -1)) cursor = cursor[key] ??= {};
+      cursor[path.at(-1)] = value;
+    });
+    const banner = "// Generated by @chores/design-tokens — do not edit by hand.\n";
+    const exports = Object.entries(tree)
+      .map(([key, val]) => `export const ${key.replace(/-/g, "_")} = ${JSON.stringify(val, null, 2)};`)
+      .join("\n\n");
+    const defaultExport = `\n\nexport default { ${Object.keys(tree)
+      .map((k) => (k.includes("-") ? `"${k}": ${k.replace(/-/g, "_")}` : k))
+      .join(", ")} };\n`;
+    return banner + exports + defaultExport;
+  },
+});
+
+StyleDictionary.registerFormat({
+  name: "chores/kotlin",
+  format: ({ dictionary }) => {
+    const t = dictionary.tokens;
+    const colorObject = (name, set) => {
+      const lines = Object.entries(set)
+        .map(([slot, node]) => `        const val ${kotlinName(slot)} = ${cssColorToArgbLong(plain(node))}`)
+        .join("\n");
+      return `    object ${name} {\n${lines}\n    }`;
+    };
+    const scaleObject = (name, set, { suffix = "", prefix = "" } = {}) => {
+      const lines = Object.entries(set)
+        .filter(([, node]) => typeof plain(node) === "number")
+        .map(([key, node]) => `        const val ${prefix}${kotlinName(key)}${suffix} = ${kotlinNum(plain(node))}`)
+        .join("\n");
+      return `    object ${name} {\n${lines}\n    }`;
+    };
+    const typographyObject = () => {
+      const lines = [];
+      for (const [role, props] of Object.entries(t.typography)) {
+        for (const [prop, node] of Object.entries(props)) {
+          const v = plain(node);
+          if (typeof v !== "number") continue;
+          const name = `${kotlinName(role)}_${kotlinName(prop.replace("line-height", "lineHeight").replace(/-/g, "_"))}`
+            .replace("LINEHEIGHT", "LINE_HEIGHT");
+          lines.push(`        const val ${name} = ${prop === "weight" ? String(v) : `${kotlinNum(v)}${Number.isInteger(v) ? "f" : ""}`}`);
+        }
+      }
+      return `    object Typography {\n${lines.join("\n")}\n    }`;
+    };
+    const elevationObject = () => {
+      const lines = Object.entries(t.elevation)
+        .map(([lvl, node]) => `        const val ELEVATION_${lvl} = ${plain(node.android)}`)
+        .join("\n");
+      return `    object Elevation {\n${lines}\n    }`;
+    };
+    const motionObject = () => {
+      const durations = Object.entries(t.duration)
+        .map(([k, node]) => `        const val DURATION_${kotlinName(k)} = ${plain(node)}`)
+        .join("\n");
+      return `    object Motion {\n${durations}\n        const val SCALE_IN_START = ${plain(t.motion["scale-in-start"])}f\n    }`;
+    };
+
+    return [
+      "// Generated by @chores/design-tokens — do not edit by hand.",
+      "package com.derekwinters.chores.tokens",
+      "",
+      "@Suppress(\"unused\", \"MagicNumber\")",
+      "object DesignTokens {",
+      `    const val BRAND = ${cssColorToArgbLong(plain(t.color.brand))}`,
+      colorObject("ColorDark", t.color.dark),
+      colorObject("ColorLight", t.color.light),
+      scaleObject("Space", t.space),
+      scaleObject("Radius", t.radius),
+      scaleObject("Stroke", t.border), // named Stroke: the design has no border-color concept
+      elevationObject(),
+      motionObject(),
+      scaleObject("Size", t.size),
+      scaleObject("Icon", t.icon),
+      scaleObject("Avatar", t.avatar),
+      scaleObject("Alpha", t.alpha),
+      scaleObject("FontWeight", t.font.weight),
+      typographyObject(),
+      "}",
+      "",
+    ].join("\n");
+  },
+});
+
+export default {
+  source: ["tokens/**/*.json"],
+  platforms: {
+    web: {
+      transformGroup: "chores/web",
+      buildPath: "dist/web/",
+      files: [
+        { destination: "tokens.css", format: "chores/css" },
+        { destination: "tokens.js", format: "chores/js" },
+      ],
+    },
+    android: {
+      transformGroup: "chores/compose",
+      buildPath: "dist/android/",
+      files: [{ destination: "DesignTokens.kt", format: "chores/kotlin" }],
+    },
+  },
+};
