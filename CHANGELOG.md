@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.2.2...design-tokens-v0.3.0) (2026-07-10)
+
+
+### Features
+
+* component-tier tokens ([#24](https://github.com/derekwinters/chores-web-design-tokens/issues/24)) ([2029918](https://github.com/derekwinters/chores-web-design-tokens/commit/20299186dba68d04d73cb85f3585f1e189040e16))
+
 ## [0.2.2](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.2.1...design-tokens-v0.2.2) (2026-07-10)
 
 
