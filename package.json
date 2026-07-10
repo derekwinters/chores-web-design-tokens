@@ -1,7 +1,7 @@
 {
   "name": "@derekwinters/design-tokens",
   "version": "0.2.2",
-  "description": "Design tokens for chores-web — single source of truth for web and Android design values",
+  "description": "Design tokens for chores-web \u2014 single source of truth for web and Android design values",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -24,7 +24,8 @@
     "build": "node build.js",
     "prepublishOnly": "npm run build",
     "test": "npm run build && vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepack": "npm run build"
   },
   "devDependencies": {
     "style-dictionary": "^4.3.0",

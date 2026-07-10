@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: 22.x
       - run: npm ci
+      - run: npm run build
       - run: npm pack
       - run: gh release upload "design-tokens-v${{ inputs.version }}" ./*.tgz --clobber
         env:
