@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.2.1...design-tokens-v0.2.2) (2026-07-10)
+
+
+### Bug Fixes
+
+* attach the npm tarball to GitHub releases for zero-auth consumers ([#20](https://github.com/derekwinters/chores-web-design-tokens/issues/20)) ([a8cb393](https://github.com/derekwinters/chores-web-design-tokens/commit/a8cb393ac451407597e5796b7d2753d06f8691bc))
+
 ## [0.2.1](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.2.0...design-tokens-v0.2.1) (2026-07-10)
 
 
