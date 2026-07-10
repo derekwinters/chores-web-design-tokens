@@ -115,7 +115,16 @@ StyleDictionary.registerFormat({
       }
 
       let out = value;
-      if (PX_ROOTS.has(root)) {
+      if (root === "component") {
+        const leaf = rest.at(-1);
+        if (leaf.includes("alpha") || leaf.includes("elevation")) {
+          // raw numbers (opacities, elevation level indices)
+        } else if (leaf.includes("duration")) {
+          out = `${value}ms`;
+        } else if (typeof value === "number") {
+          out = `${value}px`;
+        }
+      } else if (PX_ROOTS.has(root)) {
         out = typeof value === "number" ? `${value}px` : value; // radius.circle = 50%
       } else if (root === "duration") {
         out = `${value}ms`;
@@ -203,6 +212,23 @@ StyleDictionary.registerFormat({
         .join("\n");
       return `    object Elevation {\n${lines}\n    }`;
     };
+    const componentObject = () => {
+      const lines = [];
+      const walk = (nodeVal, path) => {
+        if (nodeVal && typeof nodeVal === "object" && "$value" in nodeVal) {
+          const v = plain(nodeVal);
+          if (typeof v === "number") {
+            lines.push(`        const val ${path.map(kotlinName).join("_")} = ${kotlinNum(v)}`);
+          }
+          return;
+        }
+        if (nodeVal && typeof nodeVal === "object") {
+          for (const [k, child] of Object.entries(nodeVal)) walk(child, [...path, k]);
+        }
+      };
+      walk(t.component ?? {}, []);
+      return `    object Component {\n${lines.join("\n")}\n    }`;
+    };
     const motionObject = () => {
       const durations = Object.entries(t.duration)
         .map(([k, node]) => `        const val DURATION_${kotlinName(k)} = ${plain(node)}`)
@@ -230,6 +256,7 @@ StyleDictionary.registerFormat({
       scaleObject("Alpha", t.alpha),
       scaleObject("FontWeight", t.font.weight),
       typographyObject(),
+      componentObject(),
       "}",
       "",
     ].join("\n");

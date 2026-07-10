@@ -1,0 +1,12 @@
+{
+  "component": {
+    "button": {
+      "radius": { "$value": "{radius.pill}" },
+      "padding-y": { "$value": "{space.sm}" },
+      "padding-x": { "$value": "{space.lg}" },
+      "disabled-alpha": { "$value": "{alpha.disabled}" },
+      "hover-alpha": { "$value": "{alpha.hover}" },
+      "icon-action-size": { "$value": "{icon.sm}" }
+    }
+  }
+}

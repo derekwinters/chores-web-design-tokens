@@ -1,0 +1,8 @@
+{
+  "component": {
+    "top-bar": {
+      "height": { "$value": "{size.topbar}" },
+      "avatar-size": { "$value": "{avatar.md}" }
+    }
+  }
+}

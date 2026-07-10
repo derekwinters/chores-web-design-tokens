@@ -1,0 +1,9 @@
+{
+  "component": {
+    "modal": {
+      "max-width": { "$value": "{size.modal-max}" },
+      "radius": { "$value": "{radius.md}" },
+      "padding": { "$value": 20, "$description": "matrix-documented raw: modal header/body padding (1.25rem)" }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "component": {
+    "card": {
+      "radius": { "$value": "{radius.md}" },
+      "elevation-resting": { "$value": 0, "$description": "index into elevation.* — cards are flat by default (Android ruling)" },
+      "elevation-stat": { "$value": 2, "$description": "index into elevation.*" },
+      "elevation-selected": { "$value": 3, "$description": "index into elevation.*" }
+    }
+  }
+}

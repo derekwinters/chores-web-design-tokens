@@ -1,0 +1,9 @@
+{
+  "component": {
+    "toast": {
+      "radius": { "$value": "{radius.md}" },
+      "duration": { "$value": "{duration.md}" },
+      "elevation": { "$value": 3, "$description": "index into elevation.*" }
+    }
+  }
+}

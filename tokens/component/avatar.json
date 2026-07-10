@@ -1,0 +1,9 @@
+{
+  "component": {
+    "avatar": {
+      "size-md": { "$value": "{avatar.md}" },
+      "size-lg": { "$value": "{avatar.lg}" },
+      "size-hero": { "$value": "{avatar.hero}" }
+    }
+  }
+}
