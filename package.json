@@ -1,6 +1,6 @@
 {
   "name": "@derekwinters/design-tokens",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Design tokens for chores-web — single source of truth for web and Android design values",
   "license": "MIT",
   "repository": {

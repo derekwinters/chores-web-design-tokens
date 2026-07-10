@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.2.0...design-tokens-v0.2.1) (2026-07-10)
+
+
+### Bug Fixes
+
+* rename npm package to @derekwinters/design-tokens ([#18](https://github.com/derekwinters/chores-web-design-tokens/issues/18)) ([9551f61](https://github.com/derekwinters/chores-web-design-tokens/commit/9551f610fc3cf29a17c30bd895314db4c06f2b21))
+
 ## [0.2.0](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.1.0...design-tokens-v0.2.0) (2026-07-09)
 
 
