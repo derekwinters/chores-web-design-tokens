@@ -1,0 +1,12 @@
+{
+  "component": {
+    "chore-row": {
+      "padding-outer-x": { "$value": "{space.lg}" },
+      "padding-outer-y": { "$value": "{space.sm}" },
+      "padding-inner": { "$value": "{space.lg}" },
+      "padding-inner-with-bar": { "$value": 20, "$description": "matrix-documented raw: inner start padding when the accent bar is present" },
+      "accent-bar-width": { "$value": "{border.accent-bar}" },
+      "action-gap": { "$value": "{space.xs}" }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "component": {
+    "pill-badge": {
+      "radius": { "$value": "{radius.pill}" },
+      "padding-x": { "$value": 10, "$description": "matrix-documented raw: android PillBadge horizontal padding" },
+      "padding-y": { "$value": "{space.xs}" },
+      "fill-alpha": { "$value": "{alpha.tint}" }
+    }
+  }
+}

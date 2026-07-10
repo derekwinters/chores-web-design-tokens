@@ -1,0 +1,11 @@
+{
+  "component": {
+    "form-field": {
+      "radius": { "$value": "{radius.xs}" },
+      "padding-y": { "$value": 10, "$description": "matrix-documented raw: input vertical padding" },
+      "padding-x": { "$value": "{space.md}" },
+      "focus-ring-width": { "$value": "{border.focus-ring}" },
+      "focus-ring-alpha": { "$value": "{alpha.tint-subtle}" }
+    }
+  }
+}
