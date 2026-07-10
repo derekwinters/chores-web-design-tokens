@@ -19,7 +19,7 @@ jobs:
     if: needs.release-please.outputs.release_created
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write # gh release upload needs write; npm publish needs packages
       packages: write
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1

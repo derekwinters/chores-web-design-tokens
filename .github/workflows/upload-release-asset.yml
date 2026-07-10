@@ -1,0 +1,31 @@
+# Backfill/manual: attach the npm tarball to an existing design-tokens release.
+# Normally the release workflow does this automatically; use this when a past
+# release is missing its asset.
+name: Upload release asset
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Released version (X.Y.Z) whose tag to pack and upload
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: design-tokens-v${{ inputs.version }}
+      - uses: derekwinters/chores-web-actions/actions/setup-node@19729c4d6ee3366dc32f4bd8946cb8ac7f6b05e5
+        with:
+          node-version: 22.x
+      - run: npm ci
+      - run: npm pack
+      - run: gh release upload "design-tokens-v${{ inputs.version }}" ./*.tgz --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
