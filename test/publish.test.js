@@ -62,6 +62,10 @@ describe("release workflow publish jobs", () => {
     expect(yml).toMatch(/npm\.pkg\.github\.com\/:_authToken/);
     expect(yml).toMatch(/NODE_AUTH_TOKEN/);
   });
+  it("uploads the npm tarball as a public release asset (zero-auth consumers)", () => {
+    expect(yml).toMatch(/npm pack/);
+    expect(yml).toMatch(/gh release upload "design-tokens-v/);
+  });
   it("maven publish passes the released version to gradle", () => {
     expect(yml).toMatch(/-Pversion=\$\{\{ needs\.release-please\.outputs\.version \}\}/);
   });

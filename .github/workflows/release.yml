@@ -33,6 +33,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm publish
+      # Zero-auth consumption path: attach the same tarball to the GitHub
+      # release so consumers can depend on the public asset URL without
+      # registry credentials (decision recorded in the README).
+      - run: npm pack
+      - run: gh release upload "design-tokens-v${{ needs.release-please.outputs.version }}" ./*.tgz --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-maven:
     needs: release-please

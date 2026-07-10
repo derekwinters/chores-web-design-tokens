@@ -54,6 +54,22 @@ default values, never replace the runtime override.
 - **Web body font stays DM Sans**; font families are per-platform values, metrics unify
   via the shared type scale.
 
+## Consuming the npm side (zero-auth decision of record)
+
+GitHub Packages npm requires authentication for every consumer, including Docker
+builds and Dependabot. The web client therefore pins the **tarball attached to each
+GitHub release** (public, no credentials):
+
+```json
+"@derekwinters/design-tokens": "https://github.com/derekwinters/chores-web-design-tokens/releases/download/design-tokens-vX.Y.Z/derekwinters-design-tokens-X.Y.Z.tgz"
+```
+
+The GitHub Packages npm publish is retained in the release workflow, so consumers can
+switch to registry installs later if a registry token is ever provisioned. Bumping the
+pinned version in a consumer is a one-line URL change (Dependabot does not bump URL
+dependencies). The Android client consumes the Maven artifact from GitHub Packages
+(Actions' `GITHUB_TOKEN` suffices in CI).
+
 ## Versioning (release-please — pin, don't float)
 
 Releases are cut by [release-please](https://github.com/googleapis/release-please) from
