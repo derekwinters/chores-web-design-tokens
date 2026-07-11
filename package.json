@@ -28,7 +28,7 @@
     "prepack": "npm run build"
   },
   "devDependencies": {
-    "style-dictionary": "^4.3.0",
-    "vitest": "^3.0.0"
+    "style-dictionary": "^5.5.0",
+    "vitest": "^4.1.9"
   }
 }
