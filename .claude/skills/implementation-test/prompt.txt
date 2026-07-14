@@ -1,0 +1,24 @@
+Run tests for implemented changes.
+
+No input required. Runs in current git branch.
+
+Steps:
+1. Run tests: npm test (runs the Style Dictionary build via node build.js, then vitest run)
+2. Capture output: build success, test count, passed/failed
+3. Check exit code: 0 = success, non-zero = failure (a build failure fails the step before vitest runs)
+4. Report results:
+   - If PASS: All X tests passed. Ready for verification.
+   - If FAIL: build failed OR X tests failed. List failed tests and error messages. Blocks workflow.
+
+Output format - Success:
+✅ Build + tests passed
+- Style Dictionary build: succeeded
+- vitest: 45 tests passed
+- Status: Ready for verification phase
+
+Output format - Failure:
+❌ Tests failed
+- vitest: 45 tests, 3 failed
+  - tokens/semantic.test.js > semantic aliases resolve failed: AssertionError: ...
+  - build.test.js > dist artifacts exist failed: ...
+- Status: Blocked - fix and retry

@@ -1,0 +1,49 @@
+Verify the change is present in every built dist/ artifact and show a changes summary for user review.
+
+Input: issue_number (optional)
+
+Steps:
+1. Ensure dist/ is fresh: npm test already ran node build.js; if dist/ may be stale, re-run npm run build
+2. Inspect the built artifacts and confirm the change is present in all three:
+   - dist/web/tokens.css (CSS custom properties)
+   - dist/web/tokens.js (JS/ESM export)
+   - dist/android/DesignTokens.kt (Compose/Kotlin constants)
+   A token change must appear in every output; if it lands in only one, that is a build-config bug — report it, do not proceed.
+3. Prepare changes summary:
+   - git diff --stat to get file changes
+   - Count modified source files (tokens/, themes/, config)
+   - Summarize what was changed
+4. Show summary with:
+   - Issue number and title
+   - Files modified (with line counts)
+   - Summary of changes
+   - Test results (from previous step)
+   - Artifact verification status (per output)
+5. Pause and ask user:
+   - Approve for commit?
+   - Request more changes?
+   - Abort?
+
+Output format:
+┌─────────────────────────────────────────┐
+│ Issue #42: Add notification token group │
+│ Verification Complete                   │
+└─────────────────────────────────────────┘
+
+Files Modified:
+- tokens/semantic/color.json: +12, -0 lines
+- tokens/component/notification.json: +24, -0 lines
+
+Summary:
+Added the notification component token group aliasing the semantic warning/error/success ramps.
+
+Tests: ✅ Style Dictionary build + all 45 vitest tests passed
+Artifacts:
+- dist/web/tokens.css: ✅ change present
+- dist/web/tokens.js: ✅ change present
+- dist/android/DesignTokens.kt: ✅ change present
+
+Ready to proceed?
+- [Approve for commit]
+- [Request changes]
+- [Abort]
