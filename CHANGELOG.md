@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.3.0...design-tokens-v0.4.0) (2026-07-14)
+
+
+### Features
+
+* add notification component token group ([#33](https://github.com/derekwinters/chores-web-design-tokens/issues/33)) ([f1bf371](https://github.com/derekwinters/chores-web-design-tokens/commit/f1bf3715a948e82124c3b81c420fec2a2cfa9c22)), closes [#31](https://github.com/derekwinters/chores-web-design-tokens/issues/31)
+
 ## [0.3.0](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.2.2...design-tokens-v0.3.0) (2026-07-10)
 
 
