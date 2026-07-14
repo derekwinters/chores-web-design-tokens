@@ -1,0 +1,21 @@
+{
+  "component": {
+    "notification": {
+      "badge": {
+        "size": { "$value": "{icon.sm}" },
+        "radius": { "$value": "{radius.pill}" },
+        "padding-x": { "$value": "{space.xs}" }
+      },
+      "log-row": {
+        "padding-x": { "$value": "{space.lg}" },
+        "padding-y": { "$value": "{space.sm}" },
+        "radius": { "$value": "{radius.md}" },
+        "unread-bar-width": { "$value": "{border.accent-bar}" },
+        "unread-fill-alpha": { "$value": "{alpha.tint-subtle}" }
+      },
+      "banner": {
+        "elevation": { "$value": 3, "$description": "index into elevation.*" }
+      }
+    }
+  }
+}
