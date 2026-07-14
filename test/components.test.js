@@ -113,6 +113,24 @@ describe("component token sources", () => {
     expect(val(t, "component.toast.elevation")).toBe(3);
   });
 
+  it("notification: badge dot/pill, log-row surface, unread accent bar + subtle tint", () => {
+    expect(val(t, "component.notification.badge.size")).toBe(16);
+    expect(val(t, "component.notification.badge.radius")).toBe(9999);
+    expect(val(t, "component.notification.badge.padding-x")).toBe(4);
+    expect(val(t, "component.notification.log-row.padding-x")).toBe(16);
+    expect(val(t, "component.notification.log-row.padding-y")).toBe(8);
+    expect(val(t, "component.notification.log-row.radius")).toBe(12);
+    expect(val(t, "component.notification.log-row.unread-bar-width")).toBe(4);
+    expect(val(t, "component.notification.log-row.unread-fill-alpha")).toBe(0.1);
+    expect(val(t, "component.notification.banner.elevation")).toBe(3);
+  });
+
+  it("DECISION: no 'info' semantic color slot (v1 has one event type — unread binds to accent)", () => {
+    expect(node(t, "color.dark.info")).toBeUndefined();
+    expect(node(t, "color.light.info")).toBeUndefined();
+    expect(node(t, "color.info")).toBeUndefined();
+  });
+
   it("alias-only rule: raw values appear only on the documented exception list", () => {
     const RAW_ALLOWED = new Set([
       "component.chore-row.padding-inner-with-bar", // 20 — matrix-documented
@@ -123,6 +141,7 @@ describe("component token sources", () => {
       "component.card.elevation-stat",
       "component.card.elevation-selected",
       "component.toast.elevation",
+      "component.notification.banner.elevation", // level index into elevation.*
     ]);
     const walk = (n, path) => {
       if (!n || typeof n !== "object") return;
@@ -148,12 +167,16 @@ describe("component tokens in built outputs", () => {
     expect(css).toMatch(/--component-top-bar-height:\s*64px/);
     expect(css).toMatch(/--component-pill-badge-fill-alpha:\s*0\.15/);
     expect(css).toMatch(/--component-chore-row-accent-bar-width:\s*4px/);
+    expect(css).toMatch(/--component-notification-badge-size:\s*16px/);
+    expect(css).toMatch(/--component-notification-log-row-unread-bar-width:\s*4px/);
   });
 
   it("web JS exports the component tree resolved", async () => {
     const mod = await import(DIST + "web/tokens.js");
     expect(mod.component.button["padding-x"]).toBe(16);
     expect(mod.component["top-bar"].height).toBe(64);
+    expect(mod.component.notification.badge.size).toBe(16);
+    expect(mod.component.notification["log-row"]["unread-bar-width"]).toBe(4);
   });
 
   it("Kotlin output carries component constants", () => {
@@ -163,5 +186,7 @@ describe("component tokens in built outputs", () => {
     expect(kt).toMatch(/PILL_BADGE_PADDING_X = 10/);
     expect(kt).toMatch(/TOP_BAR_HEIGHT = 64/);
     expect(kt).toMatch(/CARD_ELEVATION_SELECTED = 3/);
+    expect(kt).toMatch(/NOTIFICATION_BADGE_SIZE = 16/);
+    expect(kt).toMatch(/NOTIFICATION_LOG_ROW_UNREAD_BAR_WIDTH = 4/);
   });
 });

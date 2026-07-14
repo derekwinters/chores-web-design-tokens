@@ -17,6 +17,7 @@ Ruling of record: **where the platforms disagreed at migration time, Android's v
 | 3 | Web `--elevation-*` box-shadows are derived from Android's M3 elevation rendering per dp level |
 | 4 | **Top bar height = 64** (`size.topbar`, M3 `TopAppBar` default); web migrates from 56 |
 | 5 | Activity-log target badges match Android: person → `secondary`, chore → `primary` (web's accent/gold outlines migrate) |
+| 6 | **Notification** unread state + badge bind to the existing `accent` runtime slot; **no `info` semantic slot** — v1 has a single event type ("chore due"), and a new slot would ripple through the 9-slot runtime theme contract for no benefit |
 
 ## Layout primitives
 
@@ -97,6 +98,8 @@ decision 2): `border.emphasis` 2, `border.accent-bar` 4, `border.focus-ring` 3.
 | **Dialog/Modal** | `size.modal-max` 540, `radius.md`, `color.overlay` backdrop, 20px padding, surface-contrast header (no divider) | `AlertDialog`/`DatePickerDialog` (M3 defaults) | destructive confirms use error-tinted confirm action |
 | **Top bar** | height 64 (decision 4), `brand-title`, `avatar.md` 32 circle menu | `TopAppBar` 64dp, serif title, 32dp avatar `navigationIcon` | per-screen actions stay platform-specific |
 | **Toast/Snackbar** | slide-up + fade `duration.md`, `radius.md`, `elevation.3` | `Snackbar` (M3) | — |
+| **Notification badge** | unread-count dot/pill on bell / nav entry: `notification.badge` tokens — `radius.pill`, `icon.sm` (16) diameter, `space.xs` (4) count padding, fill = `accent`, text `label-medium` | `Badge` on nav icon (same values), container = `tertiary` (accent slot) | badge fill/unread → `accent` (no `info` slot); v1 single event type ("chore due") |
+| **Notification banner/log-row** | log entry surface: `notification.log-row` tokens — outer `space.lg`×`space.sm` (16×8), `radius.md`, row surface `surface`; unread = 4px accent bar (`border.accent-bar`, chore-row pattern) + accent tint fill @ `alpha.tint-subtle` (0.1); banner `elevation.3` | same values (notification log screen); unread leading bar + `tertiary` tint | unread indicator/tint → `accent`; text `text`/`text-muted` |
 | **Avatar** | circle, 32/40/128 | 32dp circle, bold initial | `avatar.md/lg/hero` |
 
 ## Motion
