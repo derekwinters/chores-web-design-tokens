@@ -26,15 +26,13 @@ If a question can be answered by exploring the codebase, explore the codebase in
 
 ## Area Checklist
 
-Every grilling session MUST explicitly cover all five areas. Work through them as part of the conversation, not just in the output:
+Every grilling session MUST explicitly cover all of this repo's impact areas. Work through each one as part of the conversation, not just in the output:
 
-- [ ] **Tokens (base/semantic/component)** — DTCG token sources and the three-tier alias chain (`base` → `semantic` → `component`), plus the light/dark sets and `themes/` runtime palettes
-- [ ] **Build/Artifacts** — Style Dictionary config (`style-dictionary.config.js`, `build.js`) and the generated outputs (`dist/web/tokens.css`, `dist/web/tokens.js`, `dist/android/DesignTokens.kt`); token-change severity → commit type per `CLAUDE.md`/`README.md`
-- [ ] **Tests** — the vitest suite that encodes the token spec
-- [ ] **mapping-matrix** — `docs/mapping-matrix.md`, the token → consumer mapping
-- [ ] **Docs** — README, CONTEXT.md, ADRs, any other affected docs
+**Impact areas:** tokens, themes, build, android, test
 
-If an area has no changes, state that explicitly ("Tests: no changes needed") so it's clear it was considered, not skipped.
+Treat each listed area as a checklist item, and consult this repo's `CLAUDE.md` for what that area entails and any rituals it carries (migrations, API-contract drift, versioning, etc.). Always include a **docs** review — README, architecture docs, `CONTEXT.md`, ADRs, and any other affected docs — even if it is not listed above.
+
+If an area has no changes, state that explicitly (e.g. "scheduler: no changes needed") so it's clear it was considered, not skipped.
 
 </what-to-do>
 
@@ -125,15 +123,11 @@ After the session is complete and the user confirms the decisions are captured, 
 ### Impact Areas
 | Area | Changes | Notes |
 |------|---------|-------|
-| Tokens (base/semantic/component) | ... | ... |
-| Build/Artifacts | ... | ... |
-| Tests | ... | ... |
-| mapping-matrix | ... | ... |
-| Docs | ... | ... |
+| <one row per impact area for this repo: tokens, themes, build, android, test, plus Docs> | ... | ... |
 
 ### Behaviors to Implement
-- [ ] Behavior 1 (area: Tokens (base/semantic/component))
-- [ ] Behavior 2 (area: Build/Artifacts)
+- [ ] Behavior 1 (area: Backend)
+- [ ] Behavior 2 (area: API Contract)
 
 ### CONTEXT.md Updates
 - New terms added: ...
