@@ -1,11 +1,12 @@
 ---
 name: commit
-description: Run tests and create conventional commit with proper type and scope
+description: Run the repo's tests, then create a Conventional Commit with proper type and scope.
 ---
 
 # Commit Skill
 
-Validates all tests pass, then creates a Conventional Commit with proper type/scope.
+Validates the suite passes, then creates a Conventional Commit with the right
+type/scope. Stage changes before invoking.
 
 ## Usage
 
@@ -15,14 +16,13 @@ Validates all tests pass, then creates a Conventional Commit with proper type/sc
 
 ## Flow
 
-1. Run the test suite (`npm test` — runs the Style Dictionary build via
-   `node build.js`, then the vitest suite)
-2. Stop if any tests fail — report failures
-3. Review staged/unstaged changes
-4. Derive commit type and scope from changes
-5. Create commit using Conventional Commits format
+1. Run the test suite: `npm test`
+2. Stop if anything fails — report failures; do NOT commit.
+3. Review staged/unstaged changes (`git diff --staged`, `git status`).
+4. Derive commit type and scope from the actual changes.
+5. Create the commit in Conventional Commits format.
 
-## Commit Format
+## Format
 
 ```
 <type>(<scope>): <short description>
@@ -32,32 +32,17 @@ Validates all tests pass, then creates a Conventional Commit with proper type/sc
 
 ## Types
 
-- `feat` - new feature
-- `fix` - bug fix
-- `refactor` - code restructuring
-- `test` - test additions/changes
-- `docs` - documentation
-- `chore` - build/deps/tooling
-- `style` - formatting
-- `perf` - performance
-- `ci` - CI/CD changes
+`feat` (feature) · `fix` (bug) · `refactor` · `test` · `docs` · `chore`
+(build/deps/tooling) · `style` · `perf` · `ci`. Pick by the actual semver impact
+of the change, not by what a PR title happens to say.
 
 ## Scopes
 
-- `tokens` - DTCG token sources (`base`/`semantic`/`component` tiers)
-- `themes` - built-in runtime theme palettes
-- `build` - Style Dictionary config (`style-dictionary.config.js`,
-  `build.js`), platform outputs
-- `android` - the `android-artifact/` Gradle wrapper that packages the
-  generated Kotlin constants as a Maven artifact
-- `test` - vitest specs
-- Use most relevant scope
+Use the most relevant of: `tokens, themes, build, android, test`.
 
 ## Token-change severity → commit type
-
-Token changes carry an enforced severity → SemVer mapping. This is the same
-table documented in `CLAUDE.md` (`## Releases`) and `README.md` — reference
-it, do not fork it:
+Token changes carry an enforced severity → SemVer mapping (the same table in
+`CLAUDE.md` and `README.md` — reference it, do not fork it):
 
 | Change | Commit type | SemVer |
 |---|---|---|
@@ -65,14 +50,12 @@ it, do not fork it:
 | Token added | `feat:` | MINOR |
 | Token value changed | `fix:` | PATCH |
 
-The package is still `0.x` (`bump-minor-pre-major: true`), so a pre-1.0
-`feat:` bumps MINOR even when it renames/removes a token — use `feat!:` or a
-`BREAKING CHANGE:` footer regardless for a removal/rename, so the history
-stays correct once the package promotes to `1.0.0`.
+The package is `0.x` (`bump-minor-pre-major: true`), so use `feat!:` or a
+`BREAKING CHANGE:` footer for a removal/rename regardless, so history stays correct.
+
 
 ## Rules
 
-- Subject line ≤72 characters, lowercase, no period
-- Imperative mood: "add" not "added"
-- Body only when "why" is non-obvious
-- Stage changes before invoking
+- Subject ≤72 chars, lowercase, no trailing period, imperative mood ("add" not "added").
+- Body only when the "why" is non-obvious.
+- This skill never invents a branch or pushes — it only commits.
