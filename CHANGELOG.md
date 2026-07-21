@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.4.0...design-tokens-v0.5.0) (2026-07-21)
+
+
+### Features
+
+* **ai:** adopt shared ai-skills bundles (self-updater, shared skills, dev agent) ([#39](https://github.com/derekwinters/chores-web-design-tokens/issues/39)) ([912882b](https://github.com/derekwinters/chores-web-design-tokens/commit/912882b08369710538d84dcc648025217df81355))
+
 ## [0.4.0](https://github.com/derekwinters/chores-web-design-tokens/compare/design-tokens-v0.3.0...design-tokens-v0.4.0) (2026-07-14)
 
 
