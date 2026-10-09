@@ -88,3 +88,5 @@ bypassing any conventional-commit check.
 See `README.md` for the full architecture write-up, design decisions of
 record, and the two-tier (static tokens vs. runtime `/theme` API) theming
 model.
+
+@.ai-sdlc/house-rules.md
